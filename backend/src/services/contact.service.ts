@@ -10,11 +10,14 @@ import { CreateContactDTO } from "../types/type.contacts.js";
 // CREATE
 export const createContactService = (
   data: CreateContactDTO
-): Promise<{ id: number }> => {
+): { id: number } => {
+
   if (!data.empresa) {
     throw new Error("Empresa requerida");
   }
+
   return create(data);
+
 };
 
 // GET ALL
