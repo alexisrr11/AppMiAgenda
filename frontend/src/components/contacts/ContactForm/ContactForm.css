@@ -1,0 +1,110 @@
+/* =========================
+   FORM
+========================= */
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  min-width: 0;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.contact-form input,
+.contact-form select {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #d1d5db;
+  border-radius: 14px;
+  padding: 14px;
+  outline: none;
+  font-size: 15px;
+}
+
+.contact-form input:focus,
+.contact-form select:focus {
+  border-color: #2563eb;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.form-actions button {
+  border: none;
+  border-radius: 14px;
+  padding: 14px 20px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.form-actions button[type='button'] {
+  background: #f3f4f6;
+}
+
+.form-actions button[type='submit'] {
+  background: #2563eb;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .contact-form {
+    gap: 20px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .form-actions {
+    justify-content: stretch;
+  }
+
+  .form-actions button {
+    flex: 1 1 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-form {
+    gap: 16px;
+  }
+
+  .form-grid {
+    gap: 14px;
+  }
+
+  .contact-form input,
+  .contact-form select {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .form-actions {
+    gap: 10px;
+  }
+
+  .form-actions button {
+    width: 100%;
+    padding: 13px 16px;
+  }
+}

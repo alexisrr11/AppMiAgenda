@@ -1,0 +1,77 @@
+/* =========================
+   HEADER
+========================= */
+
+.contacts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+  min-width: 0;
+}
+
+.contacts-header > div {
+  min-width: 0;
+}
+
+.contacts-header h1 {
+  font-size: 32px;
+  color: #111827;
+  font-weight: 700;
+  margin: 0;
+}
+
+.contacts-header p {
+  color: #6b7280;
+  margin: 6px 0 0;
+}
+
+.primary-button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 16px;
+  padding: 14px 22px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+
+.primary-button:hover {
+  background: #1d4ed8;
+}
+
+@media (max-width: 768px) {
+  .contacts-header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .contacts-header h1 {
+    font-size: 28px;
+  }
+
+  .primary-button {
+    padding: 10px;
+    width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contacts-header {
+    gap: 12px;
+  }
+
+  .contacts-header h1 {
+    font-size: 24px;
+  }
+
+  .contacts-header p {
+    font-size: 0.95rem;
+  }
+}

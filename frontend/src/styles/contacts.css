@@ -1,0 +1,54 @@
+.contacts-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+.contacts-page > * {
+  min-width: 0;
+}
+
+.contacts-list-message {
+  margin: 0;
+  color: #374151;
+  text-align: center;
+}
+
+.primary-button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .contacts-page {
+    gap: 20px;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contacts-page {
+    gap: 18px;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contacts-page {
+    gap: 14px;
+    padding: 12px 0;
+  }
+
+  .contacts-list-message {
+    font-size: 1rem;
+    padding: 0 12px;
+  }
+}

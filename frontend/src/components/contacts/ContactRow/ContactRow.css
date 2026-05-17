@@ -1,0 +1,78 @@
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.actions button {
+  background-color: transparent;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  min-width: 80px;
+  cursor: pointer;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.edit-button {
+  color: #2563eb;
+}
+
+.edit-button:hover {
+  box-shadow: 0 5px 20px rgba(18, 76, 252, 0.247);
+}
+
+.delete-button {
+  color: rgb(172, 18, 18);
+}
+
+.delete-button:hover {
+  box-shadow: 0 5px 20px rgba(252, 18, 18, 0.199);
+}
+
+.status-active,
+.status-inactive {
+  display: inline-block;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.status-active {
+  color: green;
+}
+
+.status-inactive {
+  color: rgb(172, 18, 18);
+}
+
+@media (max-width: 1024px) {
+  .actions {
+    gap: 8px;
+  }
+
+  .actions button {
+    min-width: 76px;
+    padding: 7px 9px;
+  }
+}
+
+@media (max-width: 768px) {
+  .actions {
+    flex-wrap: nowrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .actions {
+    gap: 6px;
+  }
+
+  .actions button {
+    min-width: 72px;
+    padding: 7px 8px;
+    font-size: 0.85rem;
+  }
+}

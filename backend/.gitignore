@@ -1,0 +1,23 @@
+# dependencies
+node_modules
+
+# build
+dist
+
+# env
+.env
+
+# sqlite
+*.sqlite
+*.sqlite3
+database.sqlite
+
+# logs
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# vscode
+.vscode

@@ -1,0 +1,8 @@
+{
+  "watch": ["src", "database/schema.sql"],
+  "ext": "ts,sql",
+  "env": {
+    "TS_NODE_TRANSPILE_ONLY": "true"
+  },
+  "exec": "node --enable-source-maps --loader ts-node/esm ./src/server.ts"
+}

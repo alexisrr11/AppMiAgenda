@@ -1,0 +1,370 @@
+:root {
+  color: #102033;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #eef4ff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+a {
+  color: #2563eb;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #1d4ed8;
+}
+
+.auth-shell,
+.dashboard-shell {
+  align-items: center;
+  background:
+    radial-gradient(circle at top left, rgba(37, 99, 235, 0.22), transparent 32rem),
+    linear-gradient(135deg, #f8fbff 0%, #e8f0ff 48%, #f7faff 100%);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.auth-card,
+.dashboard-card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 28px;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.12);
+  width: min(100%, 460px);
+  min-width: 0;
+}
+
+.auth-card {
+  padding: 2rem;
+}
+
+.auth-card__header {
+  margin-bottom: 1.75rem;
+  text-align: center;
+}
+
+.auth-card h1,
+.dashboard-card h1 {
+  color: #0f172a;
+  font-size: clamp(2rem, 6vw, 2.6rem);
+  letter-spacing: -0.045em;
+  line-height: 1;
+  margin: 0.75rem 0 0.8rem;
+}
+
+.auth-card p,
+.dashboard-card__subtitle {
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.auth-badge {
+  background: #dbeafe;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  color: #1d4ed8;
+  display: inline-flex;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.45rem 0.8rem;
+  text-transform: uppercase;
+}
+
+.auth-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.badge-session {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.badge-session button {
+  flex: 0 0 150px;
+  width: 150px;
+  color: #2563eb;
+  background-color: transparent;
+}
+
+.badge-session span {
+  width: 150px;
+}
+
+.form-field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.form-field span {
+  color: #334155;
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.form-field input {
+  background: #f8fafc;
+  border: 1px solid #dbe3ef;
+  border-radius: 16px;
+  color: #0f172a;
+  outline: none;
+  padding: 0.9rem 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  width: 100%;
+}
+
+.form-field input:focus {
+  background: #ffffff;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.form-field input[aria-invalid="true"] {
+  border-color: #ef4444;
+}
+
+.field-error {
+  color: #dc2626;
+  font-weight: 700;
+}
+
+.alert {
+  border-radius: 16px;
+  font-weight: 700;
+  line-height: 1.45;
+  padding: 0.9rem 1rem;
+}
+
+.alert--error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+}
+
+.alert--success {
+  background: #ecfdf5;
+  border: 1px solid #bbf7d0;
+  color: #047857;
+}
+
+.button {
+  align-items: center;
+  border: 0;
+  border-radius: 16px;
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: 900;
+  justify-content: center;
+  min-height: 3.15rem;
+  padding: 0.9rem 1.1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.button--primary {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  box-shadow: 0 14px 28px rgba(37, 99, 235, 0.25);
+  color: #ffffff;
+}
+
+.button--secondary {
+  background: #0f172a;
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.22);
+  color: #ffffff;
+}
+
+.auth-link {
+  color: #64748b;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.dashboard-card {
+  display: grid;
+  gap: 1.5rem;
+  padding: 2rem;
+  width: min(100%, 1180px);
+  min-width: 0;
+}
+
+.profile-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.profile-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.profile-item,
+.token-preview {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  display: grid;
+  gap: 0.35rem;
+  padding: 1rem;
+  min-width: 0;
+}
+
+.profile-item--wide,
+.token-preview {
+  grid-column: 1 / -1;
+}
+
+.profile-item span,
+.token-preview span {
+  color: #64748b;
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.profile-item strong {
+  color: #0f172a;
+  overflow-wrap: anywhere;
+}
+
+.token-preview code {
+  color: #1d4ed8;
+  display: block;
+  max-height: 8rem;
+  overflow: auto;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+
+@media (max-width: 1024px) {
+  .dashboard-shell {
+    align-items: flex-start;
+    padding: 1.5rem 1rem;
+  }
+
+  .dashboard-card {
+    gap: 1.25rem;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .auth-shell,
+  .dashboard-shell {
+    padding: 1rem;
+  }
+
+  .badge-session {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .badge-session button {
+    flex: initial;
+  }
+
+  .profile-item {
+    width: 200px;
+  }
+}
+
+@media (max-width: 560px) {
+  .auth-card,
+  .dashboard-card {
+    border-radius: 22px;
+    padding: 1.25rem;
+  }
+
+  .auth-card h1,
+  .dashboard-card h1 {
+    overflow-wrap: anywhere;
+  }
+
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .auth-shell,
+  .dashboard-shell {
+    padding: 0.75rem;
+  }
+
+  .auth-card,
+  .dashboard-card {
+    border-radius: 18px;
+    padding: 1rem;
+  }
+
+  .auth-badge {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .button {
+    padding: 0.8rem 1rem;
+  }
+}

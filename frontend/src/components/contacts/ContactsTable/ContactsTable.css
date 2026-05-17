@@ -1,0 +1,100 @@
+/* =========================
+   TABLE
+========================= */
+
+.table-container {
+  background: white;
+  display: none;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  border-radius: 20px;
+  border: 1px solid #e5e7eb;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-container table {
+  width: 100%;
+  min-width: 820px;
+  border-collapse: collapse;
+}
+
+.table-container thead {
+  background: #f9fafb;
+}
+
+.table-container th {
+  text-align: left;
+  padding: 18px;
+  font-size: 14px;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+.table-container td {
+  padding: 18px;
+  border-top: 1px solid #f3f4f6;
+  vertical-align: middle;
+}
+
+.table-container td:nth-child(1),
+.table-container td:nth-child(2) {
+  overflow-wrap: anywhere;
+}
+
+.table-container td:nth-child(3),
+.table-container td:nth-child(4),
+.table-container td:nth-child(5),
+.table-container td:nth-child(6) {
+  white-space: nowrap;
+}
+
+.table-container tbody tr:hover {
+  background: #f9fafb;
+}
+
+@media (max-width: 1024px) {
+  .table-container table {
+    min-width: 760px;
+  }
+
+  .table-container th,
+  .table-container td {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .table-container {
+    border-radius: 18px;
+    width: 60%;
+  }
+
+  .table-container table {
+    min-width: 720px;
+  }
+
+  .table-container th,
+  .table-container td {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .table-container {
+    border-radius: 16px;
+    width: 50%;
+  }
+
+  .table-container table {
+    min-width: 680px;
+  }
+
+  .table-container th,
+  .table-container td {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+}

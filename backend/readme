@@ -1,0 +1,65 @@
+miApp/
+│
+├── database/
+│   ├── database.sqlite        # Base de datos SQLite
+│   └── schema.sql             # Estructura inicial de tablas
+│
+├── src/
+│   ├── config/                # Conexión y configuración de SQLite
+│   │
+│   ├── controllers/           # Lógica que maneja req/res
+│   │
+│   ├── middlewares/           # Middlewares globales (errores)
+│   │
+│   ├── services/              # Lógica de negocio
+│   │
+│   ├── models/                # Acceso y consultas a la base de datos
+│   │
+│   ├── routes/
+│   │   ├── contacts.routes.ts # Rutas de contactos
+│   │   └── tasks.routes.ts    # Rutas de tareas
+│   │
+│   ├── types/                 # Tipos e interfaces TypeScript
+│   │
+│   ├── app.ts                 # Configuración principal de Express
+│   └── server.ts              # Inicio del servidor
+│
+├── package.json               # Dependencias y scripts
+├── tsconfig.json              # Configuración TypeScript
+└── nodemon.json               # Configuración de recarga automática
+
+Tecnologías:
+
+- Node.js
+- Express
+- TypeScript
+- SQLite
+
+Dependencias:
+- express
+- cors
+- dotenv
+- sqlite3
+- bcryptjs
+- jsonwebtoken
+
+Dependencias de desarrollo:
+- typescript
+- ts-node
+- ts-node-dev
+- nodemon
+- @types/node
+- @types/express
+- @types/cors
+- @types/sqlite3
+- @types/bcryptjs
+- @types/jsonwebtoken
+
+
+Flujo nuevo de autenticación:
+
+• register recibe name, email y password, normaliza nombre/email, hashea la contraseña y responde con usuario público sin password. 
+• login valida credenciales con bcryptjs, genera un JWT que solo contiene id y devuelve token + usuario público.
+
+• El frontend guarda el token recibido y llama inmediatamente a /auth/me con Authorization: Bearer <token> para obtener el usuario real desde SQLite.
+• En rutas protegidas o al recargar la app, el contexto usa el token persistido para volver a pedir /auth/me; si el token ya no es válido o el usuario no existe, se hace logout local
