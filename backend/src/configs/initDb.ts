@@ -4,65 +4,74 @@ import { fileURLToPath } from "node:url";
 import db from "./db.js";
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const schemaPath = path.resolve(__dirname, "../../database/schema.sql");
+
+const __dirname = path.dirname(
+  __filename
+);
+
+const schemaPath = path.resolve(
+  __dirname,
+  "../../database/schema.sql"
+);
 
 interface TableColumnInfo {
   name: string;
 }
 
-const runSql = (query: string): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    db.run(query, (error) => {
-      if (error) {
-        reject(error);
-        return;
-      }
+// RUN SQL
+const runSql = (
+  query: string
+): void => {
 
-      resolve();
-    });
-  });
+  db.exec(query);
+
 };
 
-const getUserColumns = (): Promise<TableColumnInfo[]> => {
-  return new Promise((resolve, reject) => {
-    db.all("PRAGMA table_info(users)", (error, rows: TableColumnInfo[]) => {
-      if (error) {
-        reject(error);
-        return;
-      }
+// GET USER COLUMNS
+const getUserColumns = (): TableColumnInfo[] => {
 
-      resolve(rows);
-    });
-  });
+  const rows = db
+    .prepare("PRAGMA table_info(users)")
+    .all();
+
+  return rows as TableColumnInfo[];
+
 };
 
+// MIGRATION
 const migrateUsersNameColumn = async (): Promise<void> => {
-  const columns = await getUserColumns();
-  const hasNameColumn = columns.some((column) => column.name === "name");
+
+  const columns = getUserColumns();
+
+  const hasNameColumn = columns.some(
+    (column) => column.name === "name"
+  );
 
   if (!hasNameColumn) {
-    await runSql("ALTER TABLE users ADD COLUMN name TEXT NOT NULL DEFAULT ''");
+
+    runSql(`
+      ALTER TABLE users
+      ADD COLUMN name TEXT NOT NULL DEFAULT ''
+    `);
+
   }
+
 };
 
+// INIT DB
 export const initDb = async (): Promise<void> => {
-  const schema = await fs.readFile(schemaPath, "utf-8");
 
-  await new Promise<void>((resolve, reject) => {
-    db.exec(schema, (error) => {
-      if (error) {
-        reject(error);
-        return;
-      }
+  const schema = await fs.readFile(
+    schemaPath,
+    "utf-8"
+  );
 
-      resolve();
-    });
-  });
+  db.exec(schema);
 
   await migrateUsersNameColumn();
 
   console.log("Tablas verificadas");
+
 };
 
 export default initDb;
