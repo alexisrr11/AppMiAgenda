@@ -7,7 +7,12 @@ import { errorMiddleware } from "./middlewares/error.middleware.js";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://app-mi-agenda.vercel.app"
+  ]
+}));
 app.use(express.json());
 
 app.get("/health", (_req, res) => {
