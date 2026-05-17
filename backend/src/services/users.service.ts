@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 import { getJwtSecret } from "../configs/env.js";
+
 import {
   createUser,
   findUserByEmail,
@@ -17,10 +18,19 @@ import type {
   UpdateUserDTO
 } from "../types/type.users.js";
 
-const normalizeEmail = (email: string): string => email.trim().toLowerCase();
-const normalizeName = (name: string): string => name.trim();
+const normalizeEmail = (
+  email: string
+): string => email.trim().toLowerCase();
 
-const validateCredentialsInput = (data: CreateUserDTO | LoginDTO): void => {
+const normalizeName = (
+  name: string
+): string => name.trim();
+
+// VALIDATIONS
+const validateCredentialsInput = (
+  data: CreateUserDTO | LoginDTO
+): void => {
+
   if (!data.email?.trim()) {
     throw new Error("Email requerido");
   }
@@ -28,31 +38,57 @@ const validateCredentialsInput = (data: CreateUserDTO | LoginDTO): void => {
   if (!data.password) {
     throw new Error("Password requerido");
   }
+
 };
 
-const validateRegisterInput = (data: CreateUserDTO): void => {
+const validateRegisterInput = (
+  data: CreateUserDTO
+): void => {
+
   validateCredentialsInput(data);
 
   if (!data.name?.trim()) {
     throw new Error("Nombre requerido");
   }
+
 };
 
+// REGISTER
 export const registerService = async (
   data: CreateUserDTO
 ): Promise<{ id: number; user: PublicUser }> => {
+
   validateRegisterInput(data);
 
-  const name = normalizeName(data.name);
-  const email = normalizeEmail(data.email);
-  const existingUser = await findUserByEmail(email);
+  const name = normalizeName(
+    data.name
+  );
+
+  const email = normalizeEmail(
+    data.email
+  );
+
+  // YA NO USA AWAIT
+  const existingUser = findUserByEmail(
+    email
+  );
 
   if (existingUser) {
     throw new Error("Usuario ya existe");
   }
 
-  const hashedPassword = await bcrypt.hash(data.password, 10);
-  const result = await createUser({ name, email, password: hashedPassword });
+  // bcrypt sigue async
+  const hashedPassword = await bcrypt.hash(
+    data.password,
+    10
+  );
+
+  // YA NO USA AWAIT
+  const result = createUser({
+    name,
+    email,
+    password: hashedPassword
+  });
 
   return {
     id: result.id,
@@ -62,21 +98,34 @@ export const registerService = async (
       email
     }
   };
+
 };
 
+// LOGIN
 export const loginService = async (
   data: LoginDTO
 ): Promise<{ token: string; user: PublicUser }> => {
+
   validateCredentialsInput(data);
 
-  const email = normalizeEmail(data.email);
-  const user = await findUserByEmail(email);
+  const email = normalizeEmail(
+    data.email
+  );
+
+  // YA NO USA AWAIT
+  const user = findUserByEmail(
+    email
+  );
 
   if (!user) {
     throw new Error("Credenciales inválidas");
   }
 
-  const validPassword = await bcrypt.compare(data.password, user.password);
+  // bcrypt sigue async
+  const validPassword = await bcrypt.compare(
+    data.password,
+    user.password
+  );
 
   if (!validPassword) {
     throw new Error("Credenciales inválidas");
@@ -86,9 +135,13 @@ export const loginService = async (
     id: user.id
   };
 
-  const token = jwt.sign(payload, getJwtSecret(), {
-    expiresIn: "7d"
-  });
+  const token = jwt.sign(
+    payload,
+    getJwtSecret(),
+    {
+      expiresIn: "7d"
+    }
+  );
 
   return {
     token,
@@ -98,33 +151,59 @@ export const loginService = async (
       email: user.email
     }
   };
+
 };
 
-export const getMeService = async (id: number): Promise<PublicUser | null> => {
+// GET ME
+export const getMeService = (
+  id: number
+): PublicUser | null => {
+
   return findUserById(id);
+
 };
 
+// UPDATE USER
 export const updateUserService = async (
   id: number,
   data: UpdateUserDTO
 ): Promise<{ changes: number }> => {
-  const updateData: UpdateUserDTO = { ...data };
+
+  const updateData: UpdateUserDTO = {
+    ...data
+  };
 
   if (updateData.name !== undefined) {
-    updateData.name = normalizeName(updateData.name);
+
+    updateData.name = normalizeName(
+      updateData.name
+    );
 
     if (!updateData.name) {
       throw new Error("Nombre requerido");
     }
+
   }
 
   if (updateData.email !== undefined) {
-    updateData.email = normalizeEmail(updateData.email);
+    updateData.email = normalizeEmail(
+      updateData.email
+    );
   }
 
   if (updateData.password) {
-    updateData.password = await bcrypt.hash(updateData.password, 10);
+
+    updateData.password = await bcrypt.hash(
+      updateData.password,
+      10
+    );
+
   }
 
-  return updateUser(id, updateData);
+  // YA NO USA AWAIT
+  return updateUser(
+    id,
+    updateData
+  );
+
 };
