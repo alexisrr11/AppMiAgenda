@@ -7,103 +7,124 @@ import type {
   User
 } from "../types/type.users.js";
 
-export const createUser = (data: CreateUserDTO): Promise<{ id: number }> => {
-  return new Promise((resolve, reject) => {
-    const query = `
-      INSERT INTO users (name, email, password)
-      VALUES (?, ?, ?)
-    `;
+// CREATE
+export const createUser = (
+  data: CreateUserDTO
+) => {
 
-    db.run(query, [data.name, data.email, data.password], function (error) {
-      if (error) {
-        reject(error);
-        return;
-      }
+  const query = `
+    INSERT INTO users (
+      name,
+      email,
+      password
+    )
+    VALUES (?, ?, ?)
+  `;
 
-      resolve({ id: this.lastID });
-    });
-  });
+  const result = db
+    .prepare(query)
+    .run(
+      data.name,
+      data.email,
+      data.password
+    );
+
+  return {
+    id: Number(result.lastInsertRowid)
+  };
+
 };
 
-export const findUserByEmail = (email: string): Promise<User | null> => {
-  return new Promise((resolve, reject) => {
-    const query = `
-      SELECT id, name, email, password
-      FROM users
-      WHERE email = ?
-    `;
+// FIND BY EMAIL
+export const findUserByEmail = (
+  email: string
+): User | null => {
 
-    db.get(query, [email], (error, row: User | undefined) => {
-      if (error) {
-        reject(error);
-        return;
-      }
+  const query = `
+    SELECT
+      id,
+      name,
+      email,
+      password
+    FROM users
+    WHERE email = ?
+  `;
 
-      resolve(row ?? null);
-    });
-  });
+  const user = db
+    .prepare(query)
+    .get(email);
+
+  return (user as User) ?? null;
+
 };
 
-export const findUserById = (id: number): Promise<PublicUser | null> => {
-  return new Promise((resolve, reject) => {
-    const query = `
-      SELECT id, name, email
-      FROM users
-      WHERE id = ?
-    `;
+// FIND BY ID
+export const findUserById = (
+  id: number
+): PublicUser | null => {
 
-    db.get(query, [id], (error, row: PublicUser | undefined) => {
-      if (error) {
-        reject(error);
-        return;
-      }
+  const query = `
+    SELECT
+      id,
+      name,
+      email
+    FROM users
+    WHERE id = ?
+  `;
 
-      resolve(row ?? null);
-    });
-  });
+  const user = db
+    .prepare(query)
+    .get(id);
+
+  return (user as PublicUser) ?? null;
+
 };
 
+// UPDATE
 export const updateUser = (
   id: number,
   data: UpdateUserDTO
-): Promise<{ changes: number }> => {
-  return new Promise((resolve, reject) => {
-    const fields: string[] = [];
-    const values: string[] = [];
+) => {
 
-    if (data.name !== undefined) {
-      fields.push("name = ?");
-      values.push(data.name);
-    }
+  const fields: string[] = [];
+  const values: string[] = [];
 
-    if (data.email !== undefined) {
-      fields.push("email = ?");
-      values.push(data.email);
-    }
+  if (data.name !== undefined) {
+    fields.push("name = ?");
+    values.push(data.name);
+  }
 
-    if (data.password !== undefined) {
-      fields.push("password = ?");
-      values.push(data.password);
-    }
+  if (data.email !== undefined) {
+    fields.push("email = ?");
+    values.push(data.email);
+  }
 
-    if (fields.length === 0) {
-      resolve({ changes: 0 });
-      return;
-    }
+  if (data.password !== undefined) {
+    fields.push("password = ?");
+    values.push(data.password);
+  }
 
-    const query = `
-      UPDATE users
-      SET ${fields.join(", ")}
-      WHERE id = ?
-    `;
+  if (fields.length === 0) {
+    return {
+      changes: 0
+    };
+  }
 
-    db.run(query, [...values, id], function (error) {
-      if (error) {
-        reject(error);
-        return;
-      }
+  const query = `
+    UPDATE users
+    SET ${fields.join(", ")}
+    WHERE id = ?
+  `;
 
-      resolve({ changes: this.changes });
-    });
-  });
+  const result = db
+    .prepare(query)
+    .run(
+      ...values,
+      id
+    );
+
+  return {
+    changes: result.changes
+  };
+
 };
