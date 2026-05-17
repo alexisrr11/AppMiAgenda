@@ -11,9 +11,6 @@ import { clearAuthStorage, getStoredToken, saveToken, saveUser } from '../utils/
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-console.log("API_URL:", API_URL);
-console.log(import.meta.env);
-
 const parseApiError = async (response: Response) => {
   try {
     const data = (await response.json()) as ApiErrorResponse;
