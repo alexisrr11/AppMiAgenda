@@ -16,7 +16,7 @@ const getInitialFormData = (contact?: Contact | null): CreateContactPayload => (
   nombre: contact?.nombre ?? '',
   numUno: contact?.telefono_primario ? String(contact.telefono_primario) : '',
   numDos: contact?.telefono_secundario ? String(contact.telefono_secundario) : '',
-  estado: contact?.estado ?? 'activo'
+  estado: contact?.estado ?? 'inactivo'
 });
 
 const ContactForm = ({
@@ -137,13 +137,15 @@ const ContactForm = ({
           onChange={handleChange}
           disabled={loading}
         >
+          <option value="inactivo">
+            No contactado
+          </option>
+          
           <option value="activo">
             Contactado
           </option>
 
-          <option value="inactivo">
-            No contactado
-          </option>
+          
         </select>
       </div>
 
